@@ -1,0 +1,32 @@
+# Eclipse
+# Перезапишем .gitignore правильным содержимым
+# Eclipse
+.metadata/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+.classpath
+.project
+
+# Maven
+target/
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Logs
+*.log
+
+# Eclipse workspace files (в родительской папке)
+../.metadata/
+../.project
