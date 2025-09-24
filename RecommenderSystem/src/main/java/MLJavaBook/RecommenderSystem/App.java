@@ -13,10 +13,12 @@ public class App {
         try {
             logger.info("Запуск приложения...");
             
+            
             // Создаем простой вектор
             Vector v1 = new DenseVector(new double[]{1.0, 2.0, 3.0});
             Vector v2 = new DenseVector(new double[]{4.0, 5.0, 6.0});
 
+            
             // Вычисляем скалярное произведение
             double dotProduct = v1.dot(v2);
             
@@ -31,6 +33,8 @@ public class App {
             } else {
                 logger.info("Расчет выполнен успешно!");
             }
+            
+            
             
             logger.info("Приложение завершено.");
             

@@ -38,6 +38,12 @@
             <version>0.13.0</version>
         </dependency>
         
+        <dependency>
+        <groupId>nz.ac.waikato.cms.weka</groupId>
+        <artifactId>weka-stable</artifactId>
+        <version>3.8.6</version>
+    </dependency>
+        
         <!-- Тестирование - JUnit 5 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
