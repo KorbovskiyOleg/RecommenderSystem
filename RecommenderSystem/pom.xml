@@ -43,6 +43,12 @@
         <artifactId>weka-stable</artifactId>
         <version>3.8.6</version>
     </dependency>
+    
+    <dependency>
+    <groupId>de.vandermeer</groupId>
+    <artifactId>asciitable</artifactId>
+    <version>0.3.2</version>
+</dependency>
         
         <!-- Тестирование - JUnit 5 -->
         <dependency>

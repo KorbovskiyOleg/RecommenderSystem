@@ -42,7 +42,7 @@ public class App {
          // Код Weka для работы с данными
             logger.info("Загрузка данных Weka...");
             
-            // Загрузка данных - убедитесь, что файл data.arff находится в правильной папке
+            // Загрузка данных
             DataSource source = new DataSource("src/main/java/MLJavaBook/RecommenderSystem/data.arff");
             Instances data = source.getDataSet();
             
