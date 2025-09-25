@@ -1,6 +1,10 @@
 package basicalgorithms;
 
+import weka.attributeSelection.AttributeSelection;
+import weka.attributeSelection.InfoGainAttributeEval;
+import weka.attributeSelection.Ranker;
 import weka.core.Instances;
+import weka.core.Utils;
 import weka.core.converters.ConverterUtils.DataSource;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;
@@ -29,7 +33,21 @@ public class ClassificationTask {
 		remove.setInputFormat(data);// Указание формата входных данных
 		data = Filter.useFilter(data, remove);// применяем фильтр к набору данных
 		
+		/*
+		 * Выбор признаков
+		 */
 		
-
+		// выбор атрибутов на основе информационного выигрыша (Information Gain). 
+		
+		AttributeSelection attSelect = new AttributeSelection(); // Создаем основной объект, который будет управлять процессом выбора атрибутов
+		InfoGainAttributeEval eval = new InfoGainAttributeEval();// Создаем оценщика, который вычисляет информационный выигрыш для каждого атрибута
+		Ranker search = new Ranker();// Создаем объект, который будет ранжировать атрибуты по их полезности
+		attSelect.setEvaluator(eval);// Говорит оценщику, какого эксперта использовать для оценки
+		attSelect.setSearch(search);// Указывает метод ранжирования атрибутов
+		attSelect.SelectAttributes(data); // Запускает процесс оценки и ранжирования атрибутов на ваших данных
+		
+		// получение результатов
+		int[] indices = attSelect.selectedAttributes(); // Возвращаем массив индексов отобранных атрибутов(Индексы начинаются с 0 (в отличие от фильтра Remove!))
+		System.out.println("Selected attributes: "+Utils.arrayToString(indices));
 	}
 }
