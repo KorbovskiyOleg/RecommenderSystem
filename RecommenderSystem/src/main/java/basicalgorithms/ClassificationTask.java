@@ -1,11 +1,15 @@
 package basicalgorithms;
 
 
+import java.util.Random;
+
 import javax.swing.JFrame;
 
 import weka.attributeSelection.AttributeSelection;
 import weka.attributeSelection.InfoGainAttributeEval;
 import weka.attributeSelection.Ranker;
+import weka.classifiers.Evaluation;
+import weka.classifiers.Classifier;
 import weka.classifiers.trees.J48;
 import weka.core.DenseInstance;
 import weka.core.Instance;
@@ -116,7 +120,24 @@ public class ClassificationTask {
 		double label = tree.classifyInstance(myUnicorn);// Дерево решений классифицирует животное - числовой код класса (например, 0 для "mammal", 1 для "bird")
 		System.out.println(data.classAttribute().value((int) label));// Преобразуем числовой код в текстовое название класса
 
-
+		
+		/*
+		 * Оценка качества модели
+		 */
+		
+		Classifier cl = new J48();// Создаем объект дерева решений J48
+		Evaluation eval_roc = new Evaluation(data);// Создаем объект для оценки качества модели
+		eval_roc.crossValidateModel(cl, data, 10, new Random(1), new Object[] {});//Перекрестная проверка (Cross-Validation)
+		System.out.println(eval_roc.toSummaryString());// Вывод общей статистики
+		
+		// Матрица ошибок
+		double[][] confusionMatrix = eval_roc.confusionMatrix();//Возвращаем двумерный массив с матрицей ошибок
+		System.out.println(eval_roc.toMatrixString());//Выводим матрицу ошибок в читаемом формате
+		
+		
+		
+		
+		
 		
 		
 	}
