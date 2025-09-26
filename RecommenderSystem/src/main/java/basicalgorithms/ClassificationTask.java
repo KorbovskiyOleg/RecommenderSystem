@@ -118,7 +118,7 @@ public class ClassificationTask {
 		
 		Instance myUnicorn = new DenseInstance(1.0, vals);//Создаем новый экземпляр животного с заданными характеристиками(вес экземпляра (обычно 1.0))
 		
-		myUnicorn.setDataset(data); // Связываем экземпляр с структурой dataset чтобы алгоритм понимал типы атрибутов (номинальные, числовые)
+		myUnicorn.setDataset(data); // Связываем экземпляр со структурой dataset чтобы алгоритм понимал типы атрибутов (номинальные, числовые)
 
 		double label = tree.classifyInstance(myUnicorn);// Дерево решений классифицирует животное - числовой код класса (например, 0 для "mammal", 1 для "bird")
 		System.out.println(data.classAttribute().value((int) label));// Преобразуем числовой код в текстовое название класса
