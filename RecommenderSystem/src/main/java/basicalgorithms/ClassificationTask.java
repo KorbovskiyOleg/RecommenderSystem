@@ -9,6 +9,7 @@ import weka.attributeSelection.AttributeSelection;
 import weka.attributeSelection.InfoGainAttributeEval;
 import weka.attributeSelection.Ranker;
 import weka.classifiers.Evaluation;
+import weka.classifiers.evaluation.ThresholdCurve;
 import weka.classifiers.Classifier;
 import weka.classifiers.trees.J48;
 import weka.core.DenseInstance;
@@ -20,6 +21,8 @@ import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;
 import weka.gui.treevisualizer.PlaceNode2;
 import weka.gui.treevisualizer.TreeVisualizer;
+import weka.gui.visualize.PlotData2D;
+import weka.gui.visualize.ThresholdVisualizePanel;
 
 public class ClassificationTask {
 
@@ -135,6 +138,36 @@ public class ClassificationTask {
 		System.out.println(eval_roc.toMatrixString());//Выводим матрицу ошибок в читаемом формате
 		
 		
+		
+		/*
+		 * Построение ROC кривой
+		 */
+		
+
+		ThresholdCurve tc = new ThresholdCurve();
+		int classIndex = 1;
+		Instances result = tc.getCurve(eval_roc.predictions(), classIndex);
+		// plot curve
+		ThresholdVisualizePanel vmc = new ThresholdVisualizePanel();
+		vmc.setROCString("(Area under ROC = " + ThresholdCurve.getROCArea(result) + ")");
+		vmc.setName(result.relationName());
+		PlotData2D tempd = new PlotData2D(result);
+		tempd.setPlotName(result.relationName());
+		tempd.addInstanceNumberAttribute();
+		// specify which points are connected
+		boolean[] cp = new boolean[result.numInstances()];
+		for (int n = 1; n < cp.length; n++)
+			cp[n] = true;
+		tempd.setConnectPoints(cp);
+
+		// add plot
+		vmc.addPlot(tempd);
+		// display curve
+		JFrame frameRoc = new javax.swing.JFrame("ROC Curve");
+		frameRoc.setSize(800, 500);
+		frameRoc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frameRoc.getContentPane().add(vmc);
+		frameRoc.setVisible(true);
 		
 		
 		
