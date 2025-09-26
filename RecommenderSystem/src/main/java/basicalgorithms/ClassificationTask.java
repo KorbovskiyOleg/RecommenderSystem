@@ -1,5 +1,7 @@
 package basicalgorithms;
 
+import javax.swing.JFrame;
+
 import weka.attributeSelection.AttributeSelection;
 import weka.attributeSelection.InfoGainAttributeEval;
 import weka.attributeSelection.Ranker;
@@ -9,6 +11,8 @@ import weka.core.Utils;
 import weka.core.converters.ConverterUtils.DataSource;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;
+import weka.gui.treevisualizer.PlaceNode2;
+import weka.gui.treevisualizer.TreeVisualizer;
 
 public class ClassificationTask {
 
@@ -65,6 +69,19 @@ public class ClassificationTask {
 		tree.setOptions(options);//Передаем параметры настройки алгоритму J48(алгоритм теперь знает, что нужно строить дерево без pruning)
 		tree.buildClassifier(data);//Обучаем дерево решений на данных (data). Алгоритм анализирует данные,Строит дерево решений по алгоритму C4.5
 		System.out.println(tree);//выводим дерево 
+		
+		/*
+		 * Визуализация
+		 */
+		
+		TreeVisualizer tv = new TreeVisualizer(null, tree.graph(),
+				new PlaceNode2());
+		JFrame frame = new javax.swing.JFrame("Tree Visualizer");
+		frame.setSize(800, 500);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().add(tv);
+		frame.setVisible(true);
+		tv.fitToScreen();
 
 		
 		
