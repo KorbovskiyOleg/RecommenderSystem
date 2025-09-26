@@ -3,6 +3,7 @@ package basicalgorithms;
 import weka.attributeSelection.AttributeSelection;
 import weka.attributeSelection.InfoGainAttributeEval;
 import weka.attributeSelection.Ranker;
+import weka.classifiers.trees.J48;
 import weka.core.Instances;
 import weka.core.Utils;
 import weka.core.converters.ConverterUtils.DataSource;
@@ -13,6 +14,7 @@ public class ClassificationTask {
 
 	public static void main(String[] args) throws Exception {
 
+		
 		/*
 		 * Загружаем данные
 		 */
@@ -22,7 +24,7 @@ public class ClassificationTask {
 
 		System.out.println(data.numInstances() + " instance loaded");
 		System.out.println(data.numAttributes() + " attributes");
-		System.out.println(data.toString());
+		//System.out.println(data.toString());
 
 		// Удаления шумных, избыточных или ненужных атрибутов перед обучением модели!
 		
@@ -33,8 +35,9 @@ public class ClassificationTask {
 		remove.setInputFormat(data);// Указание формата входных данных
 		data = Filter.useFilter(data, remove);// применяем фильтр к набору данных
 		
+		
 		/*
-		 * Выбор признаков
+		 * Выбор признаков(наиболее релевантных для обучения)
 		 */
 		
 		// выбор атрибутов на основе информационного выигрыша (Information Gain). 
@@ -49,5 +52,38 @@ public class ClassificationTask {
 		// получение результатов
 		int[] indices = attSelect.selectedAttributes(); // Возвращаем массив индексов отобранных атрибутов(Индексы начинаются с 0 (в отличие от фильтра Remove!))
 		System.out.println("Selected attributes: "+Utils.arrayToString(indices));
+		
+		
+		/*
+		 * Построение дерева решений J48 без pruning (отсечения)
+		 */
+		
+		String[] options = new String[1];//Создаем массив строк длиной 1 для хранения параметров настройки
+		options[0] = "-U";// Задаем параметр -U (Unpruned - без отсечения)
+		
+		J48 tree = new J48();//Создаем объект дерева решений (аналог C4.5) - пустое дерево
+		tree.setOptions(options);//Передаем параметры настройки алгоритму J48(алгоритм теперь знает, что нужно строить дерево без pruning)
+		tree.buildClassifier(data);//Обучаем дерево решений на данных (data). Алгоритм анализирует данные,Строит дерево решений по алгоритму C4.5
+		System.out.println(tree);//выводим дерево 
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 }
