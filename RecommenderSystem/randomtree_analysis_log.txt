@@ -1,0 +1,154 @@
+================================================================================
+АНАЛИЗ ДАННЫХ С ИСПОЛЬЗОВАНИЕМ RANDOM TREE
+Время начала: Sat Sep 27 09:25:18 MSK 2025
+Файл лога: C:\Users\Админ\eclipse-workspace\DataScienceEclipse\RecommenderSystem\randomtree_analysis_log.txt
+================================================================================
+
+=== ЗАГРУЗКА ДАННЫХ ===
+101 instances loaded
+18 attributes
+Class attribute: type
+
+=== ПРЕДОБРАБОТКА ДАННЫХ ===
+After filtering - Class attribute: type
+Remaining attributes: 17
+Class distribution:
+  mammal: 41 instances (40,6%)
+  bird: 20 instances (19,8%)
+  reptile: 5 instances (5,0%)
+  fish: 13 instances (12,9%)
+  amphibian: 4 instances (4,0%)
+  insect: 8 instances (7,9%)
+  invertebrate: 10 instances (9,9%)
+
+=== ПОСТРОЕНИЕ МОДЕЛИ RANDOM TREE ===
+Параметры модели:
+  K (количество признаков): 0 (auto)
+  M (мин. объектов в листе): 1
+  S (seed): 1
+  Depth (макс. глубина): 0 (неограничено)
+
+=== СТРУКТУРА СЛУЧАЙНОГО ДЕРЕВА ===
+
+RandomTree
+==========
+
+hair = false
+|   feathers = false
+|   |   fins = false
+|   |   |   toothed = false
+|   |   |   |   backbone = false
+|   |   |   |   |   legs < 5.5 : invertebrate (6/0)
+|   |   |   |   |   legs >= 5.5
+|   |   |   |   |   |   legs < 7
+|   |   |   |   |   |   |   breathes = false : invertebrate (2/0)
+|   |   |   |   |   |   |   breathes = true : insect (4/0)
+|   |   |   |   |   |   legs >= 7 : invertebrate (2/0)
+|   |   |   |   backbone = true : reptile (1/0)
+|   |   |   toothed = true
+|   |   |   |   eggs = false : reptile (1/0)
+|   |   |   |   eggs = true
+|   |   |   |   |   tail = false : amphibian (3/0)
+|   |   |   |   |   tail = true
+|   |   |   |   |   |   venomous = false
+|   |   |   |   |   |   |   aquatic = false : reptile (2/0)
+|   |   |   |   |   |   |   aquatic = true : amphibian (1/0)
+|   |   |   |   |   |   venomous = true : reptile (1/0)
+|   |   fins = true
+|   |   |   eggs = false : mammal (2/0)
+|   |   |   eggs = true : fish (13/0)
+|   feathers = true : bird (20/0)
+hair = true
+|   eggs = false : mammal (38/0)
+|   eggs = true
+|   |   backbone = false : insect (4/0)
+|   |   backbone = true : mammal (1/0)
+
+Size of the tree : 31
+
+ИНФОРМАЦИЯ О МОДЕЛИ:
+Модель успешно построена
+Количество атрибутов: 17
+Количество классов: 7
+
+=== ВИЗУАЛИЗАЦИЯ ===
+Открытие окна визуализации дерева...
+Окно визуализации успешно открыто
+
+=== КЛАССИФИКАЦИЯ НОВЫХ ДАННЫХ ===
+Предсказанный класс: bird
+Вероятности по классам:
+  mammal: 0,000
+  bird: 1,000
+  reptile: 0,000
+  fish: 0,000
+  amphibian: 0,000
+  insect: 0,000
+  invertebrate: 0,000
+
+=== ОЦЕНКА КАЧЕСТВА МОДЕЛИ ===
+ОБЩАЯ СТАТИСТИКА:
+
+Correctly Classified Instances          96               95.0495 %
+Incorrectly Classified Instances         5                4.9505 %
+Kappa statistic                          0.9345
+Mean absolute error                      0.0141
+Root mean squared error                  0.1189
+Relative absolute error                  6.4519 %
+Root relative squared error             36.0487 %
+Total Number of Instances              101     
+
+МАТРИЦА ОШИБОК:
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g   <-- classified as
+ 40  1  0  0  0  0  0 |  a = mammal
+  0 20  0  0  0  0  0 |  b = bird
+  0  1  2  1  1  0  0 |  c = reptile
+  0  0  0 13  0  0  0 |  d = fish
+  0  0  0  0  4  0  0 |  e = amphibian
+  0  0  0  0  0  8  0 |  f = insect
+  1  0  0  0  0  0  9 |  g = invertebrate
+
+ДЕТАЛЬНАЯ СТАТИСТИКА ПО КЛАССАМ:
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,976    0,017    0,976      0,976    0,976      0,959    0,979     0,962     mammal
+                 1,000    0,025    0,909      1,000    0,952      0,942    0,988     0,909     bird
+                 0,400    0,000    1,000      0,400    0,571      0,623    0,700     0,430     reptile
+                 1,000    0,011    0,929      1,000    0,963      0,958    0,994     0,929     fish
+                 1,000    0,010    0,800      1,000    0,889      0,890    0,995     0,800     amphibian
+                 1,000    0,000    1,000      1,000    1,000      1,000    1,000     1,000     insect
+                 0,900    0,000    1,000      0,900    0,947      0,944    0,950     0,910     invertebrate
+Weighted Avg.    0,950    0,014    0,955      0,950    0,945      0,938    0,968     0,912     
+
+ДОПОЛНИТЕЛЬНЫЕ МЕТРИКИ:
+Точность (Accuracy): 95,05%
+Каппа статистика: 0,935
+Средняя абсолютная ошибка: 0,014
+Корень из среднеквадратичной ошибки: 0,119
+
+ПЕРЕКРЕСТНАЯ ПРОВЕРКА (10-fold):
+Количество folds: 10
+Seed для воспроизводимости: 1
+
+СРАВНЕНИЕ С БАЗОВЫМИ МЕТРИКАМИ:
+Точность базового классификатора (всегда majority class): 40,59%
+Улучшение над базовым классификатором: 54,46%
+
+АНАЛИЗ МАТРИЦЫ ОШИБОК:
+Правильно классифицировано: 96/101 (95,0%)
+  mammal: 40/41 (97,6% recall)
+  bird: 20/20 (100,0% recall)
+  reptile: 2/5 (40,0% recall)
+  fish: 13/13 (100,0% recall)
+  amphibian: 4/4 (100,0% recall)
+  insect: 8/8 (100,0% recall)
+  invertebrate: 9/10 (90,0% recall)
+
+================================================================================
+АНАЛИЗ С RANDOM TREE ЗАВЕРШЕН УСПЕШНО!
+Все результаты сохранены в файл: C:\Users\Админ\eclipse-workspace\DataScienceEclipse\RecommenderSystem\randomtree_analysis_log.txt
+Время завершения: Sat Sep 27 09:25:18 MSK 2025
+================================================================================
