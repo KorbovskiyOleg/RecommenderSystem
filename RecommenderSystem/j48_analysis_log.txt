@@ -1,0 +1,112 @@
+================================================================================
+АНАЛИЗ ДАННЫХ С ИСПОЛЬЗОВАНИЕМ J48
+Время начала: Sat Sep 27 08:57:22 MSK 2025
+Файл лога: C:\Users\Админ\eclipse-workspace\DataScienceEclipse\RecommenderSystem\j48_analysis_log.txt
+================================================================================
+
+=== ЗАГРУЗКА ДАННЫХ ===
+101 instances loaded
+18 attributes
+Class attribute: type
+
+=== ПРЕДОБРАБОТКА ДАННЫХ ===
+После фильтрации - атрибутов: 17
+Class attribute after filtering: type
+
+=== ВЫБОР ПРИЗНАКОВ ===
+Selected attributes: 12,3,7,2,0,1,8,9,13,4,11,5,15,10,6,14,16
+
+=== ПОСТРОЕНИЕ МОДЕЛИ J48 ===
+Дерево решений построено успешно!
+
+=== СТРУКТУРА ДЕРЕВА ===
+J48 unpruned tree
+------------------
+
+feathers = false
+|   milk = false
+|   |   backbone = false
+|   |   |   airborne = false
+|   |   |   |   predator = false
+|   |   |   |   |   legs <= 2: invertebrate (2.0)
+|   |   |   |   |   legs > 2: insect (2.0)
+|   |   |   |   predator = true: invertebrate (8.0)
+|   |   |   airborne = true: insect (6.0)
+|   |   backbone = true
+|   |   |   fins = false
+|   |   |   |   tail = false: amphibian (3.0)
+|   |   |   |   tail = true: reptile (6.0/1.0)
+|   |   |   fins = true: fish (13.0)
+|   milk = true: mammal (41.0)
+feathers = true: bird (20.0)
+
+Number of Leaves  : 	9
+
+Size of the tree : 	17
+
+
+=== ВИЗУАЛИЗАЦИЯ ===
+Открытие окна визуализации дерева...
+
+=== КЛАССИФИКАЦИЯ НОВЫХ ДАННЫХ ===
+Предсказанный класс: bird
+Вероятности по классам:
+  mammal: 0,000
+  bird: 1,000
+  reptile: 0,000
+  fish: 0,000
+  amphibian: 0,000
+  insect: 0,000
+  invertebrate: 0,000
+
+=== ОЦЕНКА КАЧЕСТВА МОДЕЛИ ===
+ОБЩАЯ СТАТИСТИКА:
+
+Correctly Classified Instances          93               92.0792 %
+Incorrectly Classified Instances         8                7.9208 %
+Kappa statistic                          0.8955
+Mean absolute error                      0.0225
+Root mean squared error                  0.14  
+Relative absolute error                 10.2478 %
+Root relative squared error             42.4398 %
+Total Number of Instances              101     
+
+МАТРИЦА ОШИБОК:
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g   <-- classified as
+ 41  0  0  0  0  0  0 |  a = mammal
+  0 20  0  0  0  0  0 |  b = bird
+  0  0  3  1  0  1  0 |  c = reptile
+  0  0  0 13  0  0  0 |  d = fish
+  0  0  1  0  3  0  0 |  e = amphibian
+  0  0  0  0  0  5  3 |  f = insect
+  0  0  0  0  0  2  8 |  g = invertebrate
+
+ДЕТАЛЬНАЯ СТАТИСТИКА ПО КЛАССАМ:
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    0,000    1,000      1,000    1,000      1,000    1,000     1,000     mammal
+                 1,000    0,000    1,000      1,000    1,000      1,000    1,000     1,000     bird
+                 0,600    0,010    0,750      0,600    0,667      0,656    0,793     0,420     reptile
+                 1,000    0,011    0,929      1,000    0,963      0,958    0,994     0,929     fish
+                 0,750    0,000    1,000      0,750    0,857      0,862    0,872     0,760     amphibian
+                 0,625    0,032    0,625      0,625    0,625      0,593    0,920     0,677     insect
+                 0,800    0,033    0,727      0,800    0,762      0,735    0,986     0,812     invertebrate
+Weighted Avg.    0,921    0,008    0,922      0,921    0,920      0,914    0,976     0,908     
+
+ДОПОЛНИТЕЛЬНЫЕ МЕТРИКИ:
+Точность (Accuracy): 92,08%
+Каппа статистика: 0,895
+Средняя абсолютная ошибка: 0,022
+
+=== ROC-КРИВАЯ ===
+Открытие окна ROC-кривой...
+Площадь под ROC-кривой: 1.0
+
+================================================================================
+АНАЛИЗ ЗАВЕРШЕН УСПЕШНО!
+Все результаты сохранены в файл: C:\Users\Админ\eclipse-workspace\DataScienceEclipse\RecommenderSystem\j48_analysis_log.txt
+Время завершения: Sat Sep 27 08:57:23 MSK 2025
+================================================================================
