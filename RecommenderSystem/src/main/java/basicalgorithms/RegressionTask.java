@@ -1,8 +1,12 @@
 package basicalgorithms;
 
+import weka.classifiers.functions.LinearRegression;
 import weka.core.Instances;
 //import weka.core.Instances;
 import weka.core.converters.CSVLoader;
+import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.Remove;
+
 import java.io.File;
 
 public class RegressionTask {
@@ -11,14 +15,29 @@ public class RegressionTask {
 		
 		
 		/*
-		 * Load data
+		 * Загрузка данных
 		 */
 		CSVLoader loader = new CSVLoader();
 		loader.setFieldSeparator(",");
 		loader.setSource(new File("data/ENB2012_data.csv"));
 		Instances data = loader.getDataSet();
-
-		 System.out.println(data);
+		 //System.out.println(data);
+		 
+		 /*
+			 * Построение регрессионой моедли где пердсказываем только один целевой атрибут Y1(тепловая нагрузка)
+			 */
+			
+			data.setClassIndex(data.numAttributes() - 2);// установка индекса класса на Y1 (нагрузка при нагреве)
+			// удаление Y2
+			Remove remove = new Remove();
+			remove.setOptions(new String[] { "-R", data.numAttributes() + "" });
+			remove.setInputFormat(data);
+			data = Filter.useFilter(data, remove);
+			
+			// создаем модель регрессии
+			LinearRegression model = new LinearRegression();
+			model.buildClassifier(data);
+			System.out.println(model);
 	}
 
 }
