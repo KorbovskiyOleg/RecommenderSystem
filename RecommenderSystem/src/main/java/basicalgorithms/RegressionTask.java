@@ -1,6 +1,7 @@
 package basicalgorithms;
 
 import weka.core.Instances;
+//import weka.core.Instances;
 import weka.core.converters.CSVLoader;
 import java.io.File;
 
@@ -17,7 +18,7 @@ public class RegressionTask {
 		loader.setSource(new File("data/ENB2012_data.csv"));
 		Instances data = loader.getDataSet();
 
-		 //System.out.println(data);
+		 System.out.println(data);
 	}
 
 }
