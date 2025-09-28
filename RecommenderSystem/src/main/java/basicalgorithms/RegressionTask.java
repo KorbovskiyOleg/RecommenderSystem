@@ -1,5 +1,6 @@
 package basicalgorithms;
 
+import weka.classifiers.evaluation.Evaluation;
 import weka.classifiers.functions.LinearRegression;
 import weka.core.Instances;
 //import weka.core.Instances;
@@ -8,6 +9,7 @@ import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;
 
 import java.io.File;
+import java.util.Random;
 
 public class RegressionTask {
 	
@@ -38,6 +40,16 @@ public class RegressionTask {
 			LinearRegression model = new LinearRegression();
 			model.buildClassifier(data);
 			System.out.println(model);
+			
+			
+			// 10-кратная cross-validation
+			Evaluation eval = new Evaluation(data);
+			eval.crossValidateModel(model, data, 10, new Random(1), new String[] {});
+			System.out.println(eval.toSummaryString());
+			double coef[] = model.coefficients();
+			System.out.println();
+			
+			
 	}
 
 }
