@@ -331,7 +331,7 @@ public class ClassificationTask {
     public static void main(String[] args) throws Exception {
         
         // Создаем файл для сохранения логов
-        File logFile = new File("j48_analysis_log.txt");
+        File logFile = new File("j48_analysis_log(clean).txt");
         PrintStream fileStream = new PrintStream(new FileOutputStream(logFile));
         
         // Сохраняем оригинальный System.out
@@ -355,7 +355,7 @@ public class ClassificationTask {
              * Загружаем данные
              */
             System.out.println("\n=== ЗАГРУЗКА ДАННЫХ ===");
-            DataSource source = new DataSource("data/zoo.arff");
+            DataSource source = new DataSource("data/zoo_clean.arff");
             Instances data = source.getDataSet();
 
             System.out.println(data.numInstances() + " instances loaded");
@@ -376,6 +376,7 @@ public class ClassificationTask {
             remove.setInputFormat(data);// Указание формата входных данных
             data = Filter.useFilter(data, remove);// применяем фильтр к набору данных
             System.out.println("После фильтрации - атрибутов: " + data.numAttributes());
+            System.out.println(data);
             
             // Переустанавливаем индекс класса после фильтрации
             data.setClassIndex(data.numAttributes() - 1);
@@ -432,19 +433,19 @@ public class ClassificationTask {
             vals[0] = 0.0; // hair {false, true}
             vals[1] = 1.0; // feathers {false, true}
             vals[2] = 1.0; // eggs {false, true}
-            vals[3] = 0.0; // milk {false, true}
-            vals[4] = 1.0; // airborne {false, true}
-            vals[5] = 0.0; // aquatic {false, true}
-            vals[6] = 0.0; // predator {false, true}
-            vals[7] = 0.0; // toothed {false, true}
-            vals[8] = 1.0; // backbone {false, true}
-            vals[9] = 1.0; // breathes {false, true}
-            vals[10] = 0.0; // venomous {false, true}
-            vals[11] = 0.0; // fins {false, true}
-            vals[12] = 2.0; // legs INTEGER [0,9]
-            vals[13] = 1.0; // tail {false, true}
-            vals[14] = 0.0; // domestic {false, true}
-            vals[15] = 0.0; // catsize {false, true}
+            //vals[3] = 0.0; // milk {false, true}
+            vals[2] = 1.0; // airborne {false, true}
+            vals[3] = 0.0; // aquatic {false, true}
+            vals[4] = 0.0; // predator {false, true}
+            vals[5] = 0.0; // toothed {false, true}
+            vals[6] = 1.0; // backbone {false, true}
+            vals[7] = 1.0; // breathes {false, true}
+            vals[8] = 0.0; // venomous {false, true}
+            vals[9] = 0.0; // fins {false, true}
+            vals[10] = 2.0; // legs INTEGER [0,9]
+            vals[11] = 1.0; // tail {false, true}
+            vals[12] = 0.0; // domestic {false, true}
+            vals[13] = 0.0; // catsize {false, true}
             
             Instance myUnicorn = new DenseInstance(1.0, vals);
             myUnicorn.setDataset(data);
@@ -473,6 +474,10 @@ public class ClassificationTask {
             
             System.out.println("МАТРИЦА ОШИБОК:");
             System.out.println(eval_roc.toMatrixString());
+            
+         // Анализ матрицы ошибок
+            analyzeConfusionMatrix(eval_roc,data);
+         
             
             System.out.println("ДЕТАЛЬНАЯ СТАТИСТИКА ПО КЛАССАМ:");
             System.out.println(eval_roc.toClassDetailsString());
@@ -533,5 +538,41 @@ public class ClassificationTask {
             System.out.println("\nЛоги сохранены в файл: " + logFile.getAbsolutePath());
             System.out.println("Размер файла: " + logFile.length() + " байт");
         }
+        
+    }
+    
+    private static void analyzeConfusionMatrix(Evaluation eval, Instances data) {
+        System.out.println("\nАНАЛИЗ МАТРИЦЫ ОШИБОК:");
+        double[][] matrix = eval.confusionMatrix();
+        
+        int totalCorrect = 0;
+        int totalInstances = data.numInstances();
+        
+        for (int i = 0; i < matrix.length; i++) {
+            totalCorrect += matrix[i][i];
+        }
+        
+        System.out.printf("Правильно классифицировано: %d/%d (%.1f%%)\n", 
+            totalCorrect, totalInstances, (double)totalCorrect / totalInstances * 100);
+        
+        // Анализ по классам
+        for (int i = 0; i < matrix.length; i++) {
+            int classCorrect = (int) matrix[i][i];
+            int classTotal = 0;
+            for (int j = 0; j < matrix.length; j++) {
+                classTotal += matrix[i][j];
+            }
+            if (classTotal > 0) {
+                double recall = (double) classCorrect / classTotal * 100;
+                System.out.printf("  %s: %d/%d (%.1f%% recall)\n", 
+                    data.classAttribute().value(i), classCorrect, classTotal, recall);
+            }
+        }
+        
+        // Дополнительная статистика для RandomForest
+        System.out.println("\nОЖИДАЕМЫЕ ПРЕИМУЩЕСТВА RANDOM FOREST:");
+        System.out.println("• Более сбалансированные ошибки между классами");
+        System.out.println("• Лучшая обобщающая способность");
+        System.out.println("• Устойчивость к переобучению");
     }
 }

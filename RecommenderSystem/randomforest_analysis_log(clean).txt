@@ -1,0 +1,133 @@
+================================================================================
+АНАЛИЗ ДАННЫХ С ИСПОЛЬЗОВАНИЕМ RANDOM FOREST
+Время начала: Mon Oct 13 09:25:38 MSK 2025
+Файл лога: C:\Users\Админ\eclipse-workspace\DataScienceEclipse\RecommenderSystem\randomforest_analysis_log(clean).txt
+================================================================================
+
+=== ЗАГРУЗКА ДАННЫХ ===
+101 instances loaded
+16 attributes
+Class attribute: type
+
+=== ПРЕДОБРАБОТКА ДАННЫХ ===
+After filtering - Class attribute: type
+Remaining attributes: 15
+Class distribution:
+  mammal: 41 instances (40,6%)
+  fish: 13 instances (12,9%)
+  bird: 20 instances (19,8%)
+  invertebrate: 10 instances (9,9%)
+  insect: 8 instances (7,9%)
+  amphibian: 4 instances (4,0%)
+  reptile: 5 instances (5,0%)
+
+=== ПОСТРОЕНИЕ МОДЕЛИ RANDOM FOREST ===
+Параметры модели RandomForest:
+  I (количество деревьев): 100
+  K (количество признаков): 0 (auto)
+  S (seed): 1
+  Depth (макс. глубина): 0 (неограничено)
+  Num-slots (потоки): 1
+
+=== ИНФОРМАЦИЯ О МОДЕЛИ RANDOM FOREST ===
+Модель RandomForest успешно построена!
+Количество деревьев в ансамбле: 100
+Количество атрибутов: 15
+Количество классов: 7
+
+ОЦЕНКА ВАЖНОСТИ ПРИЗНАКОВ:
+RandomForest обеспечивает встроенную оценку важности признаков
+Для детального анализа можно использовать AttributeSelection
+
+=== КЛАССИФИКАЦИЯ НОВЫХ ДАННЫХ ===
+Предсказанный класс: bird
+Вероятности по классам:
+  mammal: 0,000
+  fish: 0,000
+  bird: 1,000
+  invertebrate: 0,000
+  insect: 0,000
+  amphibian: 0,000
+  reptile: 0,000
+
+=== ОЦЕНКА КАЧЕСТВА МОДЕЛИ ===
+ОБЩАЯ СТАТИСТИКА:
+
+Correctly Classified Instances          97               96.0396 %
+Incorrectly Classified Instances         4                3.9604 %
+Kappa statistic                          0.9477
+Mean absolute error                      0.027 
+Root mean squared error                  0.0945
+Relative absolute error                 12.2974 %
+Root relative squared error             28.645  %
+Total Number of Instances              101     
+
+МАТРИЦА ОШИБОК:
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g   <-- classified as
+ 41  0  0  0  0  0  0 |  a = mammal
+  0 13  0  0  0  0  0 |  b = fish
+  0  0 20  0  0  0  0 |  c = bird
+  0  0  0  9  1  0  0 |  d = invertebrate
+  0  0  0  0  8  0  0 |  e = insect
+  0  0  0  0  0  3  1 |  f = amphibian
+  0  1  1  0  0  0  3 |  g = reptile
+
+ДЕТАЛЬНАЯ СТАТИСТИКА ПО КЛАССАМ:
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    0,000    1,000      1,000    1,000      1,000    1,000     1,000     mammal
+                 1,000    0,011    0,929      1,000    0,963      0,958    1,000     1,000     fish
+                 1,000    0,012    0,952      1,000    0,976      0,970    1,000     1,000     bird
+                 0,900    0,000    1,000      0,900    0,947      0,944    0,997     0,977     invertebrate
+                 1,000    0,011    0,889      1,000    0,941      0,938    1,000     1,000     insect
+                 0,750    0,000    1,000      0,750    0,857      0,862    1,000     1,000     amphibian
+                 0,600    0,010    0,750      0,600    0,667      0,656    0,981     0,761     reptile
+Weighted Avg.    0,960    0,005    0,960      0,960    0,958      0,956    0,999     0,986     
+
+ДОПОЛНИТЕЛЬНЫЕ МЕТРИКИ:
+Точность (Accuracy): 96,04%
+Каппа статистика: 0,948
+Средняя абсолютная ошибка: 0,027
+Корень из среднеквадратичной ошибки: 0,095
+
+СТАТИСТИКА АНСАМБЛЯ:
+Количество деревьев: 100
+Размер багинга: 100%
+
+ПЕРЕКРЕСТНАЯ ПРОВЕРКА (10-fold):
+Количество folds: 10
+Seed для воспроизводимости: 1
+
+СРАВНЕНИЕ С БАЗОВЫМИ МЕТРИКАМИ:
+Точность базового классификатора (всегда majority class): 40,59%
+Улучшение над базовым классификатором: 55,45%
+
+АНАЛИЗ МАТРИЦЫ ОШИБОК:
+Правильно классифицировано: 97/101 (96,0%)
+  mammal: 41/41 (100,0% recall)
+  fish: 13/13 (100,0% recall)
+  bird: 20/20 (100,0% recall)
+  invertebrate: 9/10 (90,0% recall)
+  insect: 8/8 (100,0% recall)
+  amphibian: 3/4 (75,0% recall)
+  reptile: 3/5 (60,0% recall)
+
+ОЖИДАЕМЫЕ ПРЕИМУЩЕСТВА RANDOM FOREST:
+• Более сбалансированные ошибки между классами
+• Лучшая обобщающая способность
+• Устойчивость к переобучению
+
+ПРЕИМУЩЕСТВА RANDOM FOREST:
+• Меньше склонен к переобучению
+• Более высокая точность на новых данных
+• Устойчивость к шуму и выбросам
+• Оценка важности признаков
+
+================================================================================
+АНАЛИЗ С RANDOM FOREST ЗАВЕРШЕН УСПЕШНО!
+Все результаты сохранены в файл: C:\Users\Админ\eclipse-workspace\DataScienceEclipse\RecommenderSystem\randomforest_analysis_log(clean).txt
+Время завершения: Mon Oct 13 09:25:38 MSK 2025
+================================================================================

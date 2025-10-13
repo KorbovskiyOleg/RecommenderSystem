@@ -145,7 +145,7 @@ public class ClassificationTaskRandomForest {
     public static void main(String[] args) throws Exception {
         
         // Создаем файл для сохранения логов
-        File logFile = new File("randomforest_analysis_log.txt");
+        File logFile = new File("randomforest_analysis_log(clean).txt");
         PrintStream fileStream = new PrintStream(new FileOutputStream(logFile));
         
         // Сохраняем оригинальный System.out
@@ -169,7 +169,7 @@ public class ClassificationTaskRandomForest {
              * Загружаем данные
              */
             System.out.println("\n=== ЗАГРУЗКА ДАННЫХ ===");
-            ConverterUtils.DataSource source = new ConverterUtils.DataSource("data/zoo.arff");
+            ConverterUtils.DataSource source = new ConverterUtils.DataSource("data/zoo_clean.arff");
             Instances data = source.getDataSet();
 
             System.out.println(data.numInstances() + " instances loaded");
@@ -254,20 +254,20 @@ public class ClassificationTaskRandomForest {
             double[] vals = new double[data.numAttributes()];
             vals[0] = 0.0;  // hair {false, true}
             vals[1] = 1.0;  // feathers {false, true}
-            vals[2] = 1.0;  // eggs {false, true}
-            vals[3] = 0.0;  // milk {false, true}
-            vals[4] = 1.0;  // airborne {false, true}
-            vals[5] = 0.0;  // aquatic {false, true}
-            vals[6] = 0.0;  // predator {false, true}
-            vals[7] = 0.0;  // toothed {false, true}
-            vals[8] = 1.0;  // backbone {false, true}
-            vals[9] = 1.0;  // breathes {false, true}
-            vals[10] = 0.0; // venomous {false, true}
-            vals[11] = 0.0; // fins {false, true}
-            vals[12] = 2.0; // legs INTEGER [0,9]
-            vals[13] = 1.0; // tail {false, true}
-            vals[14] = 0.0; // domestic {false, true}
-            vals[15] = 0.0; // catsize {false, true}
+            //vals[2] = 1.0;  // eggs {false, true}
+            //vals[3] = 0.0;  // milk {false, true}
+            vals[2] = 1.0;  // airborne {false, true}
+            vals[3] = 0.0;  // aquatic {false, true}
+            vals[4] = 0.0;  // predator {false, true}
+            vals[5] = 0.0;  // toothed {false, true}
+            vals[6] = 1.0;  // backbone {false, true}
+            vals[7] = 1.0;  // breathes {false, true}
+            vals[8] = 0.0; // venomous {false, true}
+            vals[9] = 0.0; // fins {false, true}
+            vals[10] = 2.0; // legs INTEGER [0,9]
+            vals[11] = 1.0; // tail {false, true}
+            vals[12] = 0.0; // domestic {false, true}
+            vals[13] = 0.0; // catsize {false, true}
 
             Instance myUnicorn = new DenseInstance(1.0, vals);
             myUnicorn.setDataset(data);
